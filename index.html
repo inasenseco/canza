@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canza Management | Hospitality Excellence</title>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Marcellus&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C5A46D;
+    --gold-light: #D9C09A;
+    --gold-muted: #9A845F;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark-card: #161616;
+    --warm-white: #F2EDE8;
+    --cream: #E8E0D6;
+    --muted: #7A756F;
+    --body-text: #B0AAA2;
+    --divider: rgba(197,164,109,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--black);
+    color: var(--warm-white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--black);
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 1s ease, visibility 1s ease;
+  }
+  .loader.done { opacity: 0; visibility: hidden; }
+  .loader-word {
+    font-family: 'Forum', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--gold);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    animation: loaderIn 0.8s ease both;
+  }
+  @keyframes loaderIn {
+    from { opacity: 0; letter-spacing: 0.8em; }
+    to { opacity: 1; letter-spacing: 0.4em; }
+  }
+
+  header {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 2rem 5%;
+    transition: all 0.5s ease;
+  }
+  header.compact {
+    padding: 1.2rem 5%;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--divider);
+  }
+  .logo { text-decoration: none; display: flex; flex-direction: column; }
+  .logo-main {
+    font-family: 'Forum', serif;
+    font-size: 1.65rem;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    line-height: 1;
+  }
+  .logo-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.55em;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-top: 4px;
+  }
+  .nav-list { display: flex; gap: 3rem; list-style: none; }
+  .nav-list a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem; font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--body-text);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-list a:hover { color: var(--gold); }
+
+  .menu-btn {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 6px; padding: 4px;
+  }
+  .menu-btn span { width: 26px; height: 1px; background: var(--gold); transition: 0.3s; }
+  .mobile-nav {
+    display: none; position: fixed; inset: 0;
+    background: rgba(10,10,10,0.97); z-index: 99;
+    flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: 'Forum', serif;
+    font-size: 2rem; color: var(--warm-white);
+    text-decoration: none; letter-spacing: 0.08em; transition: color 0.3s;
+  }
+  .mobile-nav a:hover { color: var(--gold); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; background: var(--black); overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 30% 70%, rgba(197,164,109,0.04), transparent 70%),
+      radial-gradient(ellipse 50% 45% at 75% 25%, rgba(197,164,109,0.03), transparent 70%);
+  }
+  .hero-inner { position: relative; z-index: 2; text-align: center; padding: 0 1.5rem; }
+  .hero-tag {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem; font-weight: 300;
+    letter-spacing: 0.6em; text-transform: uppercase;
+    color: var(--gold-muted); margin-bottom: 2.5rem;
+    opacity: 0; animation: rise 0.9s 1.3s ease forwards;
+  }
+  .hero h1 {
+    font-family: 'Forum', serif;
+    font-size: clamp(3.2rem, 8.5vw, 7.5rem);
+    font-weight: 400; line-height: 1.05; letter-spacing: 0.02em;
+    color: var(--warm-white); margin-bottom: 2rem;
+    opacity: 0; animation: rise 1s 1.6s ease forwards;
+  }
+  .hero h1 span {
+    color: var(--gold); font-style: italic;
+    font-family: 'Marcellus', serif;
+  }
+  .hero-desc {
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem; font-weight: 200;
+    color: var(--muted); max-width: 500px;
+    margin: 0 auto 3.5rem; line-height: 1.85; letter-spacing: 0.025em;
+    opacity: 0; animation: rise 1s 1.9s ease forwards;
+  }
+  .hero-btn {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    padding: 1.1rem 3.5rem;
+    font-size: 0.68rem; font-weight: 400;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid var(--gold-muted);
+    text-decoration: none; transition: all 0.5s ease;
+    opacity: 0; animation: rise 1s 2.2s ease forwards;
+  }
+  .hero-btn:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+  .hero-line {
+    position: absolute; bottom: 50px; left: 50%;
+    width: 1px; height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--gold-muted), transparent);
+    opacity: 0; animation: rise 1s 2.5s ease forwards;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section { padding: 7rem 6%; position: relative; }
+  .stag {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem; font-weight: 300;
+    letter-spacing: 0.55em; text-transform: uppercase;
+    color: var(--gold-muted); margin-bottom: 1.5rem;
+  }
+  .stitle {
+    font-family: 'Forum', serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 400; line-height: 1.2;
+    color: var(--warm-white); margin-bottom: 1.5rem; letter-spacing: 0.015em;
+  }
+  .sdesc {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200; color: var(--muted);
+    max-width: 580px; line-height: 1.85;
+    font-size: 0.92rem; letter-spacing: 0.02em;
+  }
+
+  .about {
+    background: var(--warm-white); color: var(--black);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .about .sdesc { color: #5A5650; }
+  .about .stitle { color: var(--black); }
+  .about-pillars { display: flex; gap: 2rem; margin-top: 3rem; }
+  .pillar { flex: 1; }
+  .pillar h4 {
+    font-family: 'Marcellus', serif;
+    font-size: 1.05rem; font-weight: 400;
+    color: var(--black); margin-bottom: 0.5rem;
+  }
+  .pillar p {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem; font-weight: 300;
+    color: #6A645E; line-height: 1.7;
+  }
+  .about-visual { position: relative; height: 460px; }
+  .av-block { position: absolute; border-radius: 2px; }
+  .av-main {
+    width: 62%; height: 72%; top: 0; left: 0;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .av-main span { font-family: 'Forum', serif; font-size: 5.5rem; color: var(--gold); }
+  .av-stat {
+    width: 52%; height: 50%; bottom: 0; right: 0;
+    background: var(--black);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: var(--warm-white);
+  }
+  .av-stat .num { font-family: 'Forum', serif; font-size: 3.8rem; color: var(--gold); line-height: 1; }
+  .av-stat .lbl {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem; letter-spacing: 0.45em;
+    text-transform: uppercase; font-weight: 300;
+    color: var(--muted); margin-top: 0.6rem;
+  }
+
+  .portfolio { background: var(--black); }
+  .portfolio-head { text-align: center; margin-bottom: 5rem; }
+  .portfolio-head .sdesc { margin: 0 auto; }
+  .pgrid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; max-width: 1360px; margin: 0 auto;
+  }
+  .pcard {
+    background: var(--dark-card);
+    border: 1px solid rgba(255,255,255,0.03);
+    text-decoration: none; color: var(--warm-white);
+    display: block;
+    transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+    overflow: hidden;
+  }
+  .pcard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border-color: var(--divider);
+  }
+  .pcard-img { height: 210px; overflow: hidden; position: relative; }
+  .pcard-bg {
+    width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    transition: transform 0.6s ease;
+  }
+  .pcard:hover .pcard-bg { transform: scale(1.05); }
+  .pcard-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.6), transparent 50%);
+  }
+  .pcard-badge {
+    position: absolute; top: 0.9rem; right: 0.9rem;
+    background: var(--gold); color: var(--black);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.55rem; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+  }
+  .pcard-body { padding: 1.6rem 1.8rem 1.8rem; }
+  .pcard-brand {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.55rem; font-weight: 300;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold-muted); margin-bottom: 0.6rem;
+  }
+  .pcard-name {
+    font-family: 'Forum', serif;
+    font-size: 1.35rem; font-weight: 400;
+    line-height: 1.3; margin-bottom: 0.6rem; letter-spacing: 0.01em;
+  }
+  .pcard-loc {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem; font-weight: 200;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.9rem;
+  }
+  .pcard-loc svg { width: 12px; height: 12px; fill: var(--gold-muted); flex-shrink: 0; }
+  .pcard-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem; font-weight: 200;
+    color: var(--muted); line-height: 1.7;
+  }
+  .pcard-arrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1.2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem; font-weight: 400;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); transition: gap 0.3s;
+  }
+  .pcard:hover .pcard-arrow { gap: 0.9rem; }
+  .pcard-arrow svg { width: 14px; height: 14px; fill: none; stroke: var(--gold); stroke-width: 1.5; }
+
+  .services { background: var(--warm-white); color: var(--black); }
+  .services-head { text-align: center; margin-bottom: 5rem; }
+  .services-head .sdesc { margin: 0 auto; color: #5A5650; }
+  .services-head .stitle { color: var(--black); }
+  .sgrid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem; max-width: 1050px; margin: 0 auto;
+  }
+  .sitem { text-align: center; padding: 2rem 1.2rem; transition: transform 0.3s; }
+  .sitem:hover { transform: translateY(-3px); }
+  .sitem svg { width: 44px; height: 44px; stroke: var(--gold); fill: none; stroke-width: 1; margin-bottom: 1.3rem; }
+  .sitem h3 {
+    font-family: 'Marcellus', serif;
+    font-size: 1.15rem; font-weight: 400;
+    color: var(--black); margin-bottom: 0.65rem;
+  }
+  .sitem p {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem; font-weight: 300;
+    color: #6A645E; line-height: 1.75;
+  }
+
+  .cta {
+    text-align: center; padding: 7rem 6%;
+    background: var(--black); position: relative; overflow: hidden;
+  }
+  .cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(197,164,109,0.04), transparent 70%);
+  }
+  .cta .stitle, .cta .sdesc { position: relative; z-index: 1; }
+  .cta .sdesc { margin: 0 auto 2.5rem; text-align: center; }
+  .cta-link {
+    display: inline-block; position: relative; z-index: 1;
+    font-family: 'Jost', sans-serif;
+    padding: 1.1rem 3.5rem;
+    font-size: 0.68rem; font-weight: 400;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    background: var(--gold); color: var(--black);
+    text-decoration: none; border: 1px solid var(--gold);
+    transition: all 0.4s;
+  }
+  .cta-link:hover { background: transparent; color: var(--gold); }
+
+  footer { background: #080808; padding: 4.5rem 6% 2.5rem; }
+  .ft-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem; margin-bottom: 3.5rem;
+  }
+  .ft-brand p {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem; font-weight: 200;
+    color: var(--muted); line-height: 1.8;
+    max-width: 310px; margin-top: 1.3rem;
+  }
+  .ft-col h4 {
+    font-family: 'Marcellus', serif;
+    font-size: 1rem; font-weight: 400;
+    color: var(--warm-white); margin-bottom: 1.3rem;
+  }
+  .ft-col a {
+    display: block; font-family: 'Jost', sans-serif;
+    font-size: 0.78rem; font-weight: 200;
+    color: var(--muted); text-decoration: none;
+    margin-bottom: 0.7rem; transition: color 0.3s;
+  }
+  .ft-col a:hover { color: var(--gold); }
+  .ft-bottom {
+    border-top: 1px solid var(--divider);
+    padding-top: 1.8rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .ft-bottom p {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem; font-weight: 200;
+    color: var(--muted); letter-spacing: 0.08em;
+  }
+
+  .rv {
+    opacity: 0; transform: translateY(35px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .rv.vis { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) { .pgrid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) {
+    .about { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { height: 320px; order: -1; }
+    .sgrid { grid-template-columns: 1fr 1fr; }
+    .ft-top { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  @media (max-width: 680px) {
+    section { padding: 5rem 5%; }
+    .nav-list { display: none; }
+    .menu-btn { display: flex; }
+    .pgrid { grid-template-columns: 1fr; max-width: 460px; }
+    .sgrid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+    .about-pillars { flex-direction: column; }
+    .ft-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader"><div class="loader-word">Canza</div></div>
+
+<header id="hdr">
+  <a href="#" class="logo">
+    <span class="logo-main">CANZA</span>
+    <span class="logo-sub">Management</span>
+  </a>
+  <ul class="nav-list">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeM()">About</a>
+  <a href="#portfolio" onclick="closeM()">Portfolio</a>
+  <a href="#services" onclick="closeM()">Services</a>
+  <a href="#contact" onclick="closeM()">Contact</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-tag">Hospitality Management</p>
+    <h1>The Art of<br><span>Exceptional</span> Stays</h1>
+    <p class="hero-desc">We transform hotels into destinations. Canza Management delivers distinguished hospitality through operational excellence, elevated guest experiences, and lasting returns.</p>
+    <a href="#portfolio" class="hero-btn">Explore Our Portfolio</a>
+  </div>
+  <div class="hero-line"></div>
+</section>
+
+<section class="about" id="about">
+  <div class="rv">
+    <p class="stag">Who We Are</p>
+    <h2 class="stitle">Cultivating Hospitality<br>with Purpose</h2>
+    <p class="sdesc">Canza Management is a hospitality management company operating a curated portfolio of branded and independent properties across the United States. We bring institutional discipline and boutique sensibility to every hotel we manage — aligning owner objectives with guest expectations to create lasting value.</p>
+    <div class="about-pillars">
+      <div class="pillar"><h4>Operational Rigor</h4><p>Data-driven revenue management and lean operational frameworks that maximize profitability.</p></div>
+      <div class="pillar"><h4>Guest-First Culture</h4><p>Every touchpoint is designed to exceed expectations and drive loyalty.</p></div>
+      <div class="pillar"><h4>Owner Alignment</h4><p>Transparent reporting and strategic guidance that protects and grows your investment.</p></div>
+    </div>
+  </div>
+  <div class="about-visual rv">
+    <div class="av-block av-main"><span>C</span></div>
+    <div class="av-block av-stat"><div class="num">6</div><div class="lbl">Properties Managed</div></div>
+  </div>
+</section>
+
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-head rv">
+    <p class="stag">Our Portfolio</p>
+    <h2 class="stitle">Properties Under<br>Our Stewardship</h2>
+    <p class="sdesc">From full-service Marriott flagships to independent luxury retreats, each property reflects our commitment to excellence and thoughtful management.</p>
+  </div>
+  <div class="pgrid">
+
+    <a href="https://www.marriott.com/en-us/hotels/bwimo-marriott-owings-mills-metro-centre/overview/" target="_blank" class="pcard rv">
+      <div class="pcard-img">
+        <div class="pcard-bg" style="background:linear-gradient(135deg,#2a2520,#3d3528);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-overlay"></div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-brand">Marriott Hotels</div>
+        <h3 class="pcard-name">Marriott Owings Mills Metro Centre</h3>
+        <div class="pcard-loc"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5z"/></svg>Owings Mills, Maryland</div>
+        <p class="pcard-text">Baltimore County's only AAA 4-Diamond hotel featuring The Tillery restaurant, 15,000 sq ft of event space, and direct metro access.</p>
+        <div class="pcard-arrow">Visit Property <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </a>
+
+    <a href="https://www.marriott.com/en-us/hotels/bwidc-delta-hotels-baltimore-north/overview/" target="_blank" class="pcard rv">
+      <div class="pcard-img">
+        <div class="pcard-bg" style="background:linear-gradient(135deg,#1f2520,#283528);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-overlay"></div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-brand">Delta Hotels by Marriott</div>
+        <h3 class="pcard-name">Delta Hotels Baltimore North</h3>
+        <div class="pcard-loc"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5z"/></svg>Baltimore, Maryland</div>
+        <p class="pcard-text">A tranquil urban retreat on 72 wooded acres in the gated Cross Keys community, minutes from Johns Hopkins, the Inner Harbor, and Camden Yards.</p>
+        <div class="pcard-arrow">Visit Property <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </a>
+
+    <a href="https://www.marriott.com/en-us/hotels/waswd-courtyard-waldorf/overview/" target="_blank" class="pcard rv">
+      <div class="pcard-img">
+        <div class="pcard-bg" style="background:linear-gradient(135deg,#252028,#352838);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-overlay"></div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-brand">Courtyard by Marriott</div>
+        <h3 class="pcard-name">Courtyard Waldorf</h3>
+        <div class="pcard-loc"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5z"/></svg>Waldorf, Maryland</div>
+        <p class="pcard-text">The only area hotel with private outdoor space and onsite Bistro, featuring a fire pit patio and easy access to Washington, D.C.</p>
+        <div class="pcard-arrow">Visit Property <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </a>
+
+    <a href="https://www.hilton.com/en/hotels/waswlhx-hampton-waldorf/" target="_blank" class="pcard rv">
+      <div class="pcard-img">
+        <div class="pcard-bg" style="background:linear-gradient(135deg,#1e2028,#282e38);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-overlay"></div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-brand">Hampton by Hilton</div>
+        <h3 class="pcard-name">Hampton Inn Waldorf</h3>
+        <div class="pcard-loc"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5z"/></svg>Waldorf, Maryland</div>
+        <p class="pcard-text">A well-positioned Waldorf hotel on Crain Highway with an outdoor pool, complimentary breakfast, fitness center, and easy proximity to Washington, D.C.</p>
+        <div class="pcard-arrow">Visit Property <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </a>
+
+    <a href="https://www.grandreserveinn.com/" target="_blank" class="pcard rv">
+      <div class="pcard-img">
+        <div class="pcard-bg" style="background:linear-gradient(135deg,#2a2218,#3d3020);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-overlay"></div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-brand">Independent Luxury</div>
+        <h3 class="pcard-name">Grand Reserve Inn</h3>
+        <div class="pcard-loc"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5z"/></svg>Plymouth, California</div>
+        <p class="pcard-text">A luxury vineyard inn in Amador County wine country offering immersive wine experiences, beautifully appointed suites, and curated culinary events.</p>
+        <div class="pcard-arrow">Visit Property <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </a>
+
+    <div class="pcard rv" style="cursor:default;">
+      <div class="pcard-img">
+        <div class="pcard-bg" style="background:linear-gradient(135deg,#1e2822,#2a382e);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-overlay"></div>
+        <div class="pcard-badge">Coming Soon</div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-brand">New Development</div>
+        <h3 class="pcard-name">Peridot Hotel</h3>
+        <div class="pcard-loc"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 7a2.5 2.5 0 010 5z"/></svg>Georgia</div>
+        <p class="pcard-text">An exciting new addition to the Canza portfolio. Stay tuned for details on this upcoming property in Georgia.</p>
+        <div class="pcard-arrow" style="opacity:0.4;">Details Coming Soon</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="services-head rv">
+    <p class="stag">What We Do</p>
+    <h2 class="stitle">Full-Spectrum Hospitality<br>Management</h2>
+    <p class="sdesc">We provide comprehensive management services that elevate properties and deliver measurable results for owners and exceptional experiences for guests.</p>
+  </div>
+  <div class="sgrid">
+    <div class="sitem rv"><svg viewBox="0 0 48 48"><path d="M6 42V18L24 6l18 12v24"/><path d="M18 42V30h12v12"/><line x1="6" y1="42" x2="42" y2="42"/></svg><h3>Property Operations</h3><p>End-to-end hotel operations management including staffing, procurement, quality assurance, and brand compliance.</p></div>
+    <div class="sitem rv"><svg viewBox="0 0 48 48"><path d="M8 38V14l8-4v28M20 38V10l8-4v32M32 38V6l8-4v36"/><line x1="4" y1="38" x2="44" y2="38"/></svg><h3>Revenue Management</h3><p>Dynamic pricing strategies, distribution optimization, and market analysis to maximize RevPAR and total revenue.</p></div>
+    <div class="sitem rv"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="8"/><path d="M8 42c0-8.84 7.16-16 16-16s16 7.16 16 16"/></svg><h3>Guest Experience</h3><p>Curated service culture, loyalty program optimization, and reputation management that drive satisfaction and repeat stays.</p></div>
+    <div class="sitem rv"><svg viewBox="0 0 48 48"><rect x="6" y="6" width="36" height="36" rx="4"/><path d="M6 18h36M18 18v24"/></svg><h3>Financial Oversight</h3><p>Transparent budgeting, cost controls, monthly owner reporting, and capital planning aligned with investment goals.</p></div>
+    <div class="sitem rv"><svg viewBox="0 0 48 48"><path d="M12 36l8-8 6 6 10-14"/><rect x="6" y="6" width="36" height="36" rx="4"/></svg><h3>Sales &amp; Marketing</h3><p>Strategic positioning, digital marketing, group sales, and local business development tailored to each property's market.</p></div>
+    <div class="sitem rv"><svg viewBox="0 0 48 48"><path d="M24 4v8M4 24h8M36 24h8M24 36v8"/><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="3"/></svg><h3>Pre-Opening &amp; Transitions</h3><p>Seamless brand conversions, new property launches, and management transitions with minimal disruption.</p></div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <h2 class="stitle rv">Partner with Canza</h2>
+  <p class="sdesc rv">Whether you're looking for experienced management for an existing hotel or developing a new property, we'd welcome the opportunity to discuss how Canza Management can add value.</p>
+  <a href="mailto:info@canzamanagement.com" class="cta-link rv">Get In Touch</a>
+</section>
+
+<footer>
+  <div class="ft-top">
+    <div class="ft-brand">
+      <a href="#" class="logo"><span class="logo-main">CANZA</span><span class="logo-sub">Management</span></a>
+      <p>Delivering distinguished hospitality through operational excellence and elevated guest experiences across a curated portfolio of properties.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Quick Links</h4>
+      <a href="#about">About</a><a href="#portfolio">Portfolio</a><a href="#services">Services</a><a href="#contact">Contact</a>
+    </div>
+    <div class="ft-col">
+      <h4>Portfolio</h4>
+      <a href="https://www.marriott.com/en-us/hotels/bwimo-marriott-owings-mills-metro-centre/overview/" target="_blank">Marriott Owings Mills</a>
+      <a href="https://www.marriott.com/en-us/hotels/bwidc-delta-hotels-baltimore-north/overview/" target="_blank">Delta Hotels Baltimore</a>
+      <a href="https://www.marriott.com/en-us/hotels/waswd-courtyard-waldorf/overview/" target="_blank">Courtyard Waldorf</a>
+      <a href="https://www.hilton.com/en/hotels/waswlhx-hampton-waldorf/" target="_blank">Hampton Inn Waldorf</a>
+      <a href="https://www.grandreserveinn.com/" target="_blank">Grand Reserve Inn</a>
+      <a href="#">Peridot Hotel (Coming Soon)</a>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>&copy; 2026 Canza Management. All rights reserved.</p>
+    <p>Hospitality Management Excellence</p>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('done'),1600)});
+window.addEventListener('scroll',()=>{document.getElementById('hdr').classList.toggle('compact',scrollY>50)});
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('mobileNav').classList.toggle('open'));
+function closeM(){document.getElementById('mobileNav').classList.remove('open')}
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
