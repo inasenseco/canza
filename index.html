@@ -19,10 +19,8 @@
     --body-text: #B0AAA2;
     --divider: rgba(197,164,109,0.15);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'Jost', sans-serif;
     background: var(--black);
@@ -37,7 +35,7 @@
     display: flex; align-items: center; justify-content: center;
     transition: opacity 1s ease, visibility 1s ease;
   }
-  .loader.done { opacity: 0; visibility: hidden; }
+  .loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
   .loader-word {
     font-family: 'Forum', serif;
     font-size: clamp(2rem, 5vw, 3.5rem);
@@ -54,8 +52,7 @@
   header {
     position: fixed; top: 0; width: 100%; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 2rem 5%;
-    transition: all 0.5s ease;
+    padding: 2rem 5%; transition: all 0.5s ease;
   }
   header.compact {
     padding: 1.2rem 5%;
@@ -65,33 +62,21 @@
   }
   .logo { text-decoration: none; display: flex; flex-direction: column; }
   .logo-main {
-    font-family: 'Forum', serif;
-    font-size: 1.65rem;
-    color: var(--gold);
-    letter-spacing: 0.18em;
-    line-height: 1;
+    font-family: 'Forum', serif; font-size: 1.65rem;
+    color: var(--gold); letter-spacing: 0.18em; line-height: 1;
   }
   .logo-sub {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.55em;
-    color: var(--muted);
-    text-transform: uppercase;
-    font-weight: 300;
-    margin-top: 4px;
+    font-family: 'Jost', sans-serif; font-size: 0.55rem;
+    letter-spacing: 0.55em; color: var(--muted);
+    text-transform: uppercase; font-weight: 300; margin-top: 4px;
   }
   .nav-list { display: flex; gap: 3rem; list-style: none; }
   .nav-list a {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.72rem; font-weight: 300;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--body-text);
-    text-decoration: none;
-    transition: color 0.3s;
+    font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 300;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--body-text); text-decoration: none; transition: color 0.3s;
   }
   .nav-list a:hover { color: var(--gold); }
-
   .menu-btn {
     display: none; background: none; border: none; cursor: pointer;
     flex-direction: column; gap: 6px; padding: 4px;
@@ -104,12 +89,12 @@
   }
   .mobile-nav.open { display: flex; }
   .mobile-nav a {
-    font-family: 'Forum', serif;
-    font-size: 2rem; color: var(--warm-white);
+    font-family: 'Forum', serif; font-size: 2rem; color: var(--warm-white);
     text-decoration: none; letter-spacing: 0.08em; transition: color 0.3s;
   }
   .mobile-nav a:hover { color: var(--gold); }
 
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
@@ -123,8 +108,7 @@
   }
   .hero-inner { position: relative; z-index: 2; text-align: center; padding: 0 1.5rem; }
   .hero-tag {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.65rem; font-weight: 300;
+    font-family: 'Jost', sans-serif; font-size: 0.65rem; font-weight: 300;
     letter-spacing: 0.6em; text-transform: uppercase;
     color: var(--gold-muted); margin-bottom: 2.5rem;
     opacity: 0; animation: rise 0.9s 1.3s ease forwards;
@@ -136,22 +120,16 @@
     color: var(--warm-white); margin-bottom: 2rem;
     opacity: 0; animation: rise 1s 1.6s ease forwards;
   }
-  .hero h1 span {
-    color: var(--gold); font-style: italic;
-    font-family: 'Marcellus', serif;
-  }
+  .hero h1 span { color: var(--gold); font-style: italic; font-family: 'Marcellus', serif; }
   .hero-desc {
-    font-family: 'Jost', sans-serif;
-    font-size: 1rem; font-weight: 200;
+    font-family: 'Jost', sans-serif; font-size: 1rem; font-weight: 200;
     color: var(--muted); max-width: 500px;
     margin: 0 auto 3.5rem; line-height: 1.85; letter-spacing: 0.025em;
     opacity: 0; animation: rise 1s 1.9s ease forwards;
   }
   .hero-btn {
-    display: inline-block;
-    font-family: 'Jost', sans-serif;
-    padding: 1.1rem 3.5rem;
-    font-size: 0.68rem; font-weight: 400;
+    display: inline-block; font-family: 'Jost', sans-serif;
+    padding: 1.1rem 3.5rem; font-size: 0.68rem; font-weight: 400;
     letter-spacing: 0.35em; text-transform: uppercase;
     color: var(--gold); border: 1px solid var(--gold-muted);
     text-decoration: none; transition: all 0.5s ease;
@@ -171,8 +149,7 @@
 
   section { padding: 7rem 6%; position: relative; }
   .stag {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.6rem; font-weight: 300;
+    font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 300;
     letter-spacing: 0.55em; text-transform: uppercase;
     color: var(--gold-muted); margin-bottom: 1.5rem;
   }
@@ -183,12 +160,11 @@
     color: var(--warm-white); margin-bottom: 1.5rem; letter-spacing: 0.015em;
   }
   .sdesc {
-    font-family: 'Jost', sans-serif;
-    font-weight: 200; color: var(--muted);
-    max-width: 580px; line-height: 1.85;
-    font-size: 0.92rem; letter-spacing: 0.02em;
+    font-family: 'Jost', sans-serif; font-weight: 200; color: var(--muted);
+    max-width: 580px; line-height: 1.85; font-size: 0.92rem; letter-spacing: 0.02em;
   }
 
+  /* ABOUT */
   .about {
     background: var(--warm-white); color: var(--black);
     display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
@@ -198,37 +174,31 @@
   .about-pillars { display: flex; gap: 2rem; margin-top: 3rem; }
   .pillar { flex: 1; }
   .pillar h4 {
-    font-family: 'Marcellus', serif;
-    font-size: 1.05rem; font-weight: 400;
+    font-family: 'Marcellus', serif; font-size: 1.05rem; font-weight: 400;
     color: var(--black); margin-bottom: 0.5rem;
   }
   .pillar p {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.8rem; font-weight: 300;
+    font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 300;
     color: #6A645E; line-height: 1.7;
   }
   .about-visual { position: relative; height: 460px; }
   .av-block { position: absolute; border-radius: 2px; }
   .av-main {
-    width: 62%; height: 72%; top: 0; left: 0;
-    background: var(--cream);
+    width: 62%; height: 72%; top: 0; left: 0; background: var(--cream);
     display: flex; align-items: center; justify-content: center;
   }
   .av-main span { font-family: 'Forum', serif; font-size: 5.5rem; color: var(--gold); }
   .av-stat {
-    width: 52%; height: 50%; bottom: 0; right: 0;
-    background: var(--black);
+    width: 52%; height: 50%; bottom: 0; right: 0; background: var(--black);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: var(--warm-white);
   }
   .av-stat .num { font-family: 'Forum', serif; font-size: 3.8rem; color: var(--gold); line-height: 1; }
   .av-stat .lbl {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.6rem; letter-spacing: 0.45em;
-    text-transform: uppercase; font-weight: 300;
-    color: var(--muted); margin-top: 0.6rem;
+    font-family: 'Jost', sans-serif; font-size: 0.6rem; letter-spacing: 0.45em;
+    text-transform: uppercase; font-weight: 300; color: var(--muted); margin-top: 0.6rem;
   }
 
+  /* PORTFOLIO */
   .portfolio { background: var(--black); }
   .portfolio-head { text-align: center; margin-bottom: 5rem; }
   .portfolio-head .sdesc { margin: 0 auto; }
@@ -239,8 +209,7 @@
   .pcard {
     background: var(--dark-card);
     border: 1px solid rgba(255,255,255,0.03);
-    text-decoration: none; color: var(--warm-white);
-    display: block;
+    text-decoration: none; color: var(--warm-white); display: block;
     transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
     overflow: hidden;
   }
@@ -249,7 +218,7 @@
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     border-color: var(--divider);
   }
-  .pcard-img { height: 210px; overflow: hidden; position: relative; }
+  .pcard-img { height: 220px; overflow: hidden; position: relative; }
   .pcard-bg {
     width: 100%; height: 100%;
     background-size: cover; background-position: center;
@@ -258,51 +227,42 @@
   .pcard:hover .pcard-bg { transform: scale(1.05); }
   .pcard-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(10,10,10,0.6), transparent 50%);
+    background: linear-gradient(to top, rgba(10,10,10,0.65) 0%, rgba(10,10,10,0.1) 40%, transparent 60%);
   }
   .pcard-badge {
     position: absolute; top: 0.9rem; right: 0.9rem;
     background: var(--gold); color: var(--black);
-    font-family: 'Jost', sans-serif;
-    font-size: 0.55rem; font-weight: 500;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    padding: 0.3rem 0.7rem;
+    font-family: 'Jost', sans-serif; font-size: 0.55rem; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase; padding: 0.3rem 0.7rem;
   }
   .pcard-body { padding: 1.6rem 1.8rem 1.8rem; }
   .pcard-brand {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.55rem; font-weight: 300;
+    font-family: 'Jost', sans-serif; font-size: 0.55rem; font-weight: 300;
     letter-spacing: 0.35em; text-transform: uppercase;
     color: var(--gold-muted); margin-bottom: 0.6rem;
   }
   .pcard-name {
-    font-family: 'Forum', serif;
-    font-size: 1.35rem; font-weight: 400;
+    font-family: 'Forum', serif; font-size: 1.35rem; font-weight: 400;
     line-height: 1.3; margin-bottom: 0.6rem; letter-spacing: 0.01em;
   }
   .pcard-loc {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.75rem; font-weight: 200;
-    color: var(--muted);
-    display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.9rem;
+    font-family: 'Jost', sans-serif; font-size: 0.75rem; font-weight: 200;
+    color: var(--muted); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.9rem;
   }
   .pcard-loc svg { width: 12px; height: 12px; fill: var(--gold-muted); flex-shrink: 0; }
   .pcard-text {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.78rem; font-weight: 200;
+    font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 200;
     color: var(--muted); line-height: 1.7;
   }
   .pcard-arrow {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    margin-top: 1.2rem;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.62rem; font-weight: 400;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--gold); transition: gap 0.3s;
+    display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.2rem;
+    font-family: 'Jost', sans-serif; font-size: 0.62rem; font-weight: 400;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); transition: gap 0.3s;
   }
   .pcard:hover .pcard-arrow { gap: 0.9rem; }
   .pcard-arrow svg { width: 14px; height: 14px; fill: none; stroke: var(--gold); stroke-width: 1.5; }
 
+  /* SERVICES */
   .services { background: var(--warm-white); color: var(--black); }
   .services-head { text-align: center; margin-bottom: 5rem; }
   .services-head .sdesc { margin: 0 auto; color: #5A5650; }
@@ -315,16 +275,15 @@
   .sitem:hover { transform: translateY(-3px); }
   .sitem svg { width: 44px; height: 44px; stroke: var(--gold); fill: none; stroke-width: 1; margin-bottom: 1.3rem; }
   .sitem h3 {
-    font-family: 'Marcellus', serif;
-    font-size: 1.15rem; font-weight: 400;
+    font-family: 'Marcellus', serif; font-size: 1.15rem; font-weight: 400;
     color: var(--black); margin-bottom: 0.65rem;
   }
   .sitem p {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.78rem; font-weight: 300;
+    font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 300;
     color: #6A645E; line-height: 1.75;
   }
 
+  /* CTA */
   .cta {
     text-align: center; padding: 7rem 6%;
     background: var(--black); position: relative; overflow: hidden;
@@ -337,48 +296,34 @@
   .cta .sdesc { margin: 0 auto 2.5rem; text-align: center; }
   .cta-link {
     display: inline-block; position: relative; z-index: 1;
-    font-family: 'Jost', sans-serif;
-    padding: 1.1rem 3.5rem;
-    font-size: 0.68rem; font-weight: 400;
-    letter-spacing: 0.3em; text-transform: uppercase;
-    background: var(--gold); color: var(--black);
-    text-decoration: none; border: 1px solid var(--gold);
-    transition: all 0.4s;
+    font-family: 'Jost', sans-serif; padding: 1.1rem 3.5rem;
+    font-size: 0.68rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase;
+    background: var(--gold); color: var(--black); text-decoration: none;
+    border: 1px solid var(--gold); transition: all 0.4s;
   }
   .cta-link:hover { background: transparent; color: var(--gold); }
 
   footer { background: #080808; padding: 4.5rem 6% 2.5rem; }
-  .ft-top {
-    display: grid; grid-template-columns: 2fr 1fr 1fr;
-    gap: 4rem; margin-bottom: 3.5rem;
-  }
+  .ft-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3.5rem; }
   .ft-brand p {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.82rem; font-weight: 200;
-    color: var(--muted); line-height: 1.8;
-    max-width: 310px; margin-top: 1.3rem;
+    font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 200;
+    color: var(--muted); line-height: 1.8; max-width: 310px; margin-top: 1.3rem;
   }
   .ft-col h4 {
-    font-family: 'Marcellus', serif;
-    font-size: 1rem; font-weight: 400;
+    font-family: 'Marcellus', serif; font-size: 1rem; font-weight: 400;
     color: var(--warm-white); margin-bottom: 1.3rem;
   }
   .ft-col a {
-    display: block; font-family: 'Jost', sans-serif;
-    font-size: 0.78rem; font-weight: 200;
-    color: var(--muted); text-decoration: none;
-    margin-bottom: 0.7rem; transition: color 0.3s;
+    display: block; font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 200;
+    color: var(--muted); text-decoration: none; margin-bottom: 0.7rem; transition: color 0.3s;
   }
   .ft-col a:hover { color: var(--gold); }
   .ft-bottom {
-    border-top: 1px solid var(--divider);
-    padding-top: 1.8rem;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 1rem;
+    border-top: 1px solid var(--divider); padding-top: 1.8rem;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
   }
   .ft-bottom p {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.68rem; font-weight: 200;
+    font-family: 'Jost', sans-serif; font-size: 0.68rem; font-weight: 200;
     color: var(--muted); letter-spacing: 0.08em;
   }
 
@@ -466,9 +411,10 @@
   </div>
   <div class="pgrid">
 
+    <!-- Marriott Owings Mills -->
     <a href="https://www.marriott.com/en-us/hotels/bwimo-marriott-owings-mills-metro-centre/overview/" target="_blank" class="pcard rv">
       <div class="pcard-img">
-        <div class="pcard-bg" style="background:linear-gradient(135deg,#2a2520,#3d3528);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-bg" style="background-image:url('https://cache.marriott.com/content/dam/marriott-renditions/BWIMO/bwimo-attraction-metro-7571-hor-clsc.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=800px:*');"></div>
         <div class="pcard-overlay"></div>
       </div>
       <div class="pcard-body">
@@ -480,9 +426,10 @@
       </div>
     </a>
 
+    <!-- Delta Hotels Baltimore North -->
     <a href="https://www.marriott.com/en-us/hotels/bwidc-delta-hotels-baltimore-north/overview/" target="_blank" class="pcard rv">
       <div class="pcard-img">
-        <div class="pcard-bg" style="background:linear-gradient(135deg,#1f2520,#283528);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-bg" style="background-image:url('https://cache.marriott.com/is/image/marriotts7prod/di-bwidc-exterior-8793-hor-clsc:Classic-Hor?wid=800&fit=constrain');"></div>
         <div class="pcard-overlay"></div>
       </div>
       <div class="pcard-body">
@@ -494,9 +441,10 @@
       </div>
     </a>
 
+    <!-- Courtyard Waldorf -->
     <a href="https://www.marriott.com/en-us/hotels/waswd-courtyard-waldorf/overview/" target="_blank" class="pcard rv">
       <div class="pcard-img">
-        <div class="pcard-bg" style="background:linear-gradient(135deg,#252028,#352838);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-bg" style="background-image:url('https://cache.marriott.com/is/image/marriotts7prod/cy-waswd-exterior-9702-hor-clsc:Classic-Hor?wid=800&fit=constrain');"></div>
         <div class="pcard-overlay"></div>
       </div>
       <div class="pcard-body">
@@ -508,9 +456,10 @@
       </div>
     </a>
 
+    <!-- Hampton Inn Waldorf -->
     <a href="https://www.hilton.com/en/hotels/waswlhx-hampton-waldorf/" target="_blank" class="pcard rv">
       <div class="pcard-img">
-        <div class="pcard-bg" style="background:linear-gradient(135deg,#1e2028,#282e38);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-bg" style="background-image:url('https://www.hilton.com/im/en/WASWLHX/15129771/front-night-crop.jpeg?impolicy=crop&cw=5225&ch=2926&gravity=NorthWest&xposition=387&yposition=0&rw=800&rh=450');"></div>
         <div class="pcard-overlay"></div>
       </div>
       <div class="pcard-body">
@@ -522,9 +471,10 @@
       </div>
     </a>
 
+    <!-- Grand Reserve Inn -->
     <a href="https://www.grandreserveinn.com/" target="_blank" class="pcard rv">
       <div class="pcard-img">
-        <div class="pcard-bg" style="background:linear-gradient(135deg,#2a2218,#3d3020);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="pcard-bg" style="background-image:url('https://static.wixstatic.com/media/4aced4_637bd6c4507e4db28d3bf9b507818006~mv2.jpg/v1/fill/w_840,h_560,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/4aced4_637bd6c4507e4db28d3bf9b507818006~mv2.jpg');"></div>
         <div class="pcard-overlay"></div>
       </div>
       <div class="pcard-body">
@@ -536,6 +486,7 @@
       </div>
     </a>
 
+    <!-- Peridot Hotel -->
     <div class="pcard rv" style="cursor:default;">
       <div class="pcard-img">
         <div class="pcard-bg" style="background:linear-gradient(135deg,#1e2822,#2a382e);display:flex;align-items:center;justify-content:center;"><svg width="56" height="56" fill="none" stroke="rgba(197,164,109,0.35)" stroke-width="1" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
